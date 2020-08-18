@@ -7,7 +7,7 @@
       v-model.trim="inputValue"
       class="dropdown-input"
       type="text"
-      placeholder="Find Football Club"
+      placeholder="Enter the team name"
     >
     <div v-else @click="resetSelection" class="dropdown-selected">
       <img :src="selectedItem.logo" class="dropdown-item-flag">
@@ -21,8 +21,11 @@
         :key="item.name"
         class="dropdown-item"
       >
-        <img :src="item.logo" class="dropdown-item-flag">
-        {{ item.name }}
+        <div v-if="item">
+          <img :src="item.logo" class="dropdown-item-flag">
+          {{ item.name }}
+        </div>
+        <div v-if="!item">No clubs found</div>
       </div>
     </div>
   </div>
@@ -39,7 +42,7 @@ export default {
       inputValue: "",
       itemList: json,
       apiLoaded: false,
-      apiUrl: "https://restcountries.eu/rest/v2/all?fields=name;flag"
+      apiUrl: "https://api-football-v1.p.rapidapi.com/v2/teams/league/"
     };
   },
   mounted() {
@@ -62,11 +65,8 @@ export default {
       return currentName.includes(currentInput);
     },
     getList() {
-      //   axios.get(this.apiUrl).then(response => {
-      //   this.itemList = response.data;
-      console.log(this.itemList);
+      //   console.log(this.itemList);
       this.apiLoaded = true;
-      //   });
     }
   }
 };
