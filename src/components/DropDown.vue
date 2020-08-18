@@ -8,6 +8,7 @@
       class="dropdown-input"
       type="text"
       placeholder="Enter the team name"
+      v-bind:class="{unroundedInput: inputValue && hasDropDown}"
     >
     <div v-else @click="resetSelection" class="dropdown-selected">
       <img :src="selectedItem.logo" class="dropdown-item-flag">
@@ -21,11 +22,11 @@
         :key="item.name"
         class="dropdown-item"
       >
-        <div v-if="item">
+        <div v-if="itemVisible(item) != 0">
           <img :src="item.logo" class="dropdown-item-flag">
           {{ item.name }}
         </div>
-        <div v-if="!item">No clubs found</div>
+        <div v-if="itemVisible(item) === 0">No clubs found</div>
       </div>
     </div>
   </div>
@@ -38,7 +39,9 @@ export default {
   name: "DropDown",
   data() {
     return {
+      previousInput: "",
       selectedItem: {},
+      hasDropDown: false,
       inputValue: "",
       itemList: json,
       apiLoaded: false,
@@ -59,11 +62,23 @@ export default {
       this.inputValue = "";
       this.$emit("on-item-selected", theItem);
     },
+
     itemVisible(item) {
       let currentName = item.name.toLowerCase();
       let currentInput = this.inputValue.toLowerCase();
+
+      if (this.previousInput != currentInput) {
+        this.hasDropDown = false;
+      }
+      if (this.inputValue != "" && currentName.includes(currentInput)) {
+        console.log(item.name);
+        this.hasDropDown = true;
+        this.previousInput = currentInput;
+      }
+
       return currentName.includes(currentInput);
     },
+
     getList() {
       //   console.log(this.itemList);
       this.apiLoaded = true;
@@ -92,7 +107,7 @@ export default {
 .dropdown-input:focus,
 .dropdown-selected:hover {
   background: #fff;
-  border-color: #e2e8f0;
+  /* border-color: #e2e8f0; */
 }
 .dropdown-input::placeholder {
   opacity: 0.7;
@@ -105,12 +120,12 @@ export default {
   position: absolute;
   width: 100%;
   max-height: 300px;
-  margin-top: 4px;
+  /* margin-top: 4px; */
   overflow-y: auto;
   background: #ffffff;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
     0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  border-radius: 8px;
+  border-radius: 0 0 8px 8px;
 }
 .dropdown-item {
   display: flex;
@@ -125,5 +140,9 @@ export default {
   max-width: 24px;
   max-height: 18px;
   margin: auto 12px auto 0px;
+}
+
+.unroundedInput {
+  border-radius: 8px 8px 0 0 !important;
 }
 </style>
