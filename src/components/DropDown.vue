@@ -95,7 +95,8 @@ export default {
       return currentName.includes(currentInput);
     },
     searchSchedule() {
-      console.log("Clicked Schedule");
+      console.log(this.selectedItem.name);
+      this.$router.push("results");
     },
     getList() {
       this.apiLoaded = true;

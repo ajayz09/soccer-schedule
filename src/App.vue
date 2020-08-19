@@ -2,20 +2,20 @@
   <div id="app">
     <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
     <!-- <Search></Search> -->
-    <DropDown/>
+    <router-view/>
   </div>
 </template>
 
 <script>
-// import Search from "./components/Search.vue";
-import DropDown from "./components/DropDown.vue";
+// import Results from "./components/Results.vue";
+// import DropDown from "./components/DropDown.vue";
 
 export default {
-  name: "App",
-  components: {
-    DropDown
-    // Search
-  }
+  name: "App" //,
+  // components: {
+  //   DropDown,
+  //   Results
+  // }
 };
 </script>
 
