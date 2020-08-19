@@ -1,15 +1,18 @@
 
 <template>
   <div class="dropdown">
-    <input
-      v-if="Object.keys(selectedItem).length === 0"
-      ref="dropdowninput"
-      v-model.trim="inputValue"
-      class="dropdown-input"
-      type="text"
-      placeholder="Enter the team name"
-      v-bind:class="{unroundedInput: inputValue && hasDropDown}"
-    >
+    <div class="search-bar" style="position:relative" v-if="Object.keys(selectedItem).length === 0">
+      <span class="material-icons search-icon">search</span>
+      <input
+        ref="dropdowninput"
+        v-model.trim="inputValue"
+        class="dropdown-input"
+        type="text"
+        placeholder="Enter the team name"
+        v-bind:class="{unroundedInput: inputValue && hasDropDown}"
+      >
+    </div>
+
     <div v-else @click="resetSelection" class="dropdown-selected">
       <img :src="selectedItem.logo" class="dropdown-item-flag">
       {{ selectedItem.name }}
@@ -80,7 +83,6 @@ export default {
     },
 
     getList() {
-      //   console.log(this.itemList);
       this.apiLoaded = true;
     }
   }
@@ -97,12 +99,17 @@ export default {
 .dropdown-input,
 .dropdown-selected {
   width: 100%;
-  padding: 10px 16px;
+  padding: 10px 40px;
   border: 1px solid transparent;
   background: #edf2f7;
   line-height: 1.5em;
   outline: none;
   border-radius: 8px;
+}
+
+.search-icon {
+  position: absolute;
+  margin: 10px 0 0 10px;
 }
 .dropdown-input:focus,
 .dropdown-selected:hover {
