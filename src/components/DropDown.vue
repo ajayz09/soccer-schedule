@@ -1,36 +1,46 @@
 
 <template>
-  <div class="dropdown">
-    <div class="search-bar" style="position:relative" v-if="Object.keys(selectedItem).length === 0">
-      <span class="material-icons search-icon">search</span>
-      <input
-        ref="dropdowninput"
-        v-model.trim="inputValue"
-        class="dropdown-input"
-        type="text"
-        placeholder="Enter the team name"
-        v-bind:class="{unroundedInput: inputValue && hasDropDown}"
-      >
-    </div>
-
-    <div v-else @click="resetSelection" class="dropdown-selected">
-      <img :src="selectedItem.logo" class="dropdown-item-flag">
-      {{ selectedItem.name }}
-    </div>
-    <div v-show="inputValue && apiLoaded" class="dropdown-list">
+  <div class="main-container" style="position:relative;">
+    <div class="dropdown">
+      <h1 style="color:white;">Check your favourite teams schedule</h1>
       <div
-        @click="selectItem(item)"
-        v-show="itemVisible(item)"
-        v-for="item in itemList"
-        :key="item.name"
-        class="dropdown-item"
+        class="search-bar"
+        style="position:relative"
+        v-if="Object.keys(selectedItem).length === 0"
       >
-        <div v-if="itemVisible(item) != 0">
-          <img :src="item.logo" class="dropdown-item-flag">
-          {{ item.name }}
-        </div>
-        <div v-if="itemVisible(item) === 0">No clubs found</div>
+        <span class="material-icons search-icon">search</span>
+        <input
+          ref="dropdowninput"
+          v-model.trim="inputValue"
+          class="dropdown-input"
+          type="text"
+          placeholder="Enter the team name"
+          v-bind:class="{unroundedInput: inputValue && hasDropDown}"
+        >
       </div>
+
+      <div v-else @click="resetSelection" class="dropdown-selected">
+        <img :src="selectedItem.logo" class="dropdown-item-flag">
+        {{ selectedItem.name }}
+      </div>
+      <div v-show="inputValue && apiLoaded" class="dropdown-list">
+        <div
+          @click="selectItem(item)"
+          v-show="itemVisible(item)"
+          v-for="item in itemList"
+          :key="item.name"
+          class="dropdown-item"
+        >
+          <div v-if="itemVisible(item) != 0">
+            <img :src="item.logo" class="dropdown-item-flag">
+            {{ item.name }}
+          </div>
+          <div v-if="itemVisible(item) === 0">No clubs found</div>
+        </div>
+      </div>
+    </div>
+    <div class="search" v-if="selectedClub">
+      <md-button class="md-raised md-accent" @click="searchSchedule()">Search</md-button>
     </div>
   </div>
 </template>
@@ -42,6 +52,7 @@ export default {
   name: "DropDown",
   data() {
     return {
+      selectedClub: false,
       previousInput: "",
       selectedItem: {},
       hasDropDown: false,
@@ -59,11 +70,14 @@ export default {
       this.selectedItem = {};
       this.$nextTick(() => this.$refs.dropdowninput.focus());
       this.$emit("on-item-reset");
+      this.selectedClub = false;
     },
     selectItem(theItem) {
       this.selectedItem = theItem;
       this.inputValue = "";
       this.$emit("on-item-selected", theItem);
+      this.selectedClub = true;
+      console.log("Selected Item - ", theItem);
     },
 
     itemVisible(item) {
@@ -74,14 +88,15 @@ export default {
         this.hasDropDown = false;
       }
       if (this.inputValue != "" && currentName.includes(currentInput)) {
-        console.log(item.name);
         this.hasDropDown = true;
         this.previousInput = currentInput;
       }
 
       return currentName.includes(currentInput);
     },
-
+    searchSchedule() {
+      console.log("Clicked Schedule");
+    },
     getList() {
       this.apiLoaded = true;
     }
@@ -90,10 +105,14 @@ export default {
 </script>
 
 <style>
+.main-container {
+  display: flex;
+  justify-content: center;
+}
 .dropdown {
   position: relative;
   width: 100%;
-  max-width: 400px;
+  max-width: 500px;
   margin: 0 auto;
 }
 .dropdown-input,
@@ -114,7 +133,6 @@ export default {
 .dropdown-input:focus,
 .dropdown-selected:hover {
   background: #fff;
-  /* border-color: #e2e8f0; */
 }
 .dropdown-input::placeholder {
   opacity: 0.7;
@@ -147,6 +165,16 @@ export default {
   max-width: 24px;
   max-height: 18px;
   margin: auto 12px auto 0px;
+}
+
+.search {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 40px;
 }
 
 .unroundedInput {
