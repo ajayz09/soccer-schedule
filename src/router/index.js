@@ -19,7 +19,8 @@ export default new Router({
     {
       path: "/results",
       name: "Results",
-      component: Results
+      component: Results,
+      props: route => ({ query: route.query.q })
     }
   ]
 });
