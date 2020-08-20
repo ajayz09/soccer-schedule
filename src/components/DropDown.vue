@@ -1,7 +1,7 @@
 
 <template>
   <div class="dropdown">
-    <h1 style="color:white;margin-bottom:30px;">Check your favourite teams schedule</h1>
+    <!-- <h1 style="color:white;margin-bottom:30px;">Check your favourite teams schedule</h1> -->
     <div class="search-bar" style="position:relative" v-if="Object.keys(selectedItem).length === 0">
       <span class="material-icons search-icon">search</span>
       <input
@@ -60,13 +60,13 @@ export default {
     resetSelection() {
       this.selectedItem = {};
       this.$nextTick(() => this.$refs.dropdowninput.focus());
-      this.$emit("on-item-reset");
       this.selectedClub = false;
+      this.$emit("onItemReset", this.selectedClub);
     },
     selectItem(theItem) {
       this.selectedItem = theItem;
       this.inputValue = "";
-      this.$emit("on-item-selected", theItem);
+      this.$emit("onItemSelected", theItem);
       this.selectedClub = true;
       console.log("Selected Item - ", theItem);
     },
@@ -83,10 +83,6 @@ export default {
         this.previousInput = currentInput;
       }
       return currentName.includes(currentInput);
-    },
-    searchSchedule() {
-      console.log(this.selectedItem.name);
-      this.$router.push("results");
     },
     getList() {
       this.apiLoaded = true;
