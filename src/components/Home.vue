@@ -1,15 +1,22 @@
 
 <template>
-  <div class="main-container" style="position:relative;">
-    <DropDown style="z-index:2"/>
+  <div class="main-container">
+    <h1 style="color:white;margin-bottom:30px;">Check your favourite teams schedule</h1>
+
+    <DropDown style="z-index:2" @onItemSelected="itemSelected" @onItemReset="itemReset"/>
     <div class="search">
       <md-button class="md-raised md-accent" @click="searchSchedule()">Search</md-button>
     </div>
+    <v-snackbar v-model="snackbar">
+      {{ text }}
+      <template v-slot:action="{ attrs }">
+        <v-btn color="pink" text v-bind="attrs" @click="snackbar = false">Close</v-btn>
+      </template>
+    </v-snackbar>
   </div>
 </template>
 
 <script>
-// import json from "../../data/teams.json";
 import DropDown from "./DropDown.vue";
 
 export default {
@@ -17,121 +24,41 @@ export default {
   components: {
     DropDown
   },
-  data() {
-    return {
-      //   selectedClub: false,
-      //   previousInput: "",
-      //   selectedItem: {},
-      //   hasDropDown: false,
-      //   inputValue: "",
-      //   itemList: json,
-      //   apiLoaded: false,
-      //   apiUrl: "https://api-football-v1.p.rapidapi.com/v2/teams/league/"
-    };
-  },
-  //   mounted() {
-  //     this.getList();
-  //   },
+  data: () => ({
+    selectedClub: [],
+    isSelected: false,
+    snackbar: false,
+    text: "Select a team first"
+  }),
   methods: {
-    // resetSelection() {
-    //   this.selectedItem = {};
-    //   this.$nextTick(() => this.$refs.dropdowninput.focus());
-    //   this.$emit("on-item-reset");
-    //   this.selectedClub = false;
-    // },
-    // selectItem(theItem) {
-    //   this.selectedItem = theItem;
-    //   this.inputValue = "";
-    //   this.$emit("on-item-selected", theItem);
-    //   this.selectedClub = true;
-    //   console.log("Selected Item - ", theItem);
-    // },
-    // itemVisible(item) {
-    //   let currentName = item.name.toLowerCase();
-    //   let currentInput = this.inputValue.toLowerCase();
-    //   if (this.previousInput != currentInput) {
-    //     this.hasDropDown = false;
-    //   }
-    //   if (this.inputValue != "" && currentName.includes(currentInput)) {
-    //     this.hasDropDown = true;
-    //     this.previousInput = currentInput;
-    //   }
-    //   return currentName.includes(currentInput);
-    // },
     searchSchedule() {
-      console.log("Here");
-      //   this.$router.push("results");
+      console.log("is selected", this.isSelected);
+      if (!this.isSelected) {
+        this.snackbar = true;
+        return;
+      }
+      this.$router.push("results?q=" + this.selectedClub.team_id);
+    },
+    itemSelected(item) {
+      this.isSelected = true;
+      this.selectedClub = item;
+    },
+    itemReset(value) {
+      this.isSelected = value;
     }
-    // getList() {
-    //   this.apiLoaded = true;
-    // }
   }
 };
 </script>
 
 <style>
 .main-container {
-  display: flex;
+  position: relative;
+  /* display: flex; */
+  margin-top: 80px;
   align-items: center;
   justify-content: center;
   height: 100%;
   /* background-color: black; */
-}
-.dropdown {
-  position: relative;
-  width: 100%;
-  max-width: 500px;
-  margin: 0 auto;
-  opacity: 1;
-}
-.dropdown-input,
-.dropdown-selected {
-  width: 100%;
-  padding: 10px 40px;
-  border: 1px solid transparent;
-  background: #edf2f7;
-  line-height: 1.5em;
-  outline: none;
-  border-radius: 8px;
-}
-
-.search-icon {
-  position: absolute;
-  margin: 10px 0 0 10px;
-}
-.dropdown-input:focus,
-.dropdown-selected:hover {
-  background: #fff;
-}
-.dropdown-input::placeholder {
-  opacity: 0.7;
-}
-.dropdown-selected {
-  cursor: pointer;
-}
-.dropdown-list {
-  position: absolute;
-  width: 100%;
-  max-height: 300px;
-  overflow-y: auto;
-  background: #ffffff;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-    0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  border-radius: 0 0 8px 8px;
-}
-.dropdown-item {
-  display: flex;
-  width: 100%;
-  padding: 11px 16px;
-  cursor: pointer;
-}
-.dropdown-item:hover {
-  background: #edf2f7;
-}
-.dropdown-item-flag {
-  max-width: 24px;
-  max-height: 18px;
-  margin: auto 12px auto 0px;
 }
 
 .search {
@@ -144,9 +71,5 @@ export default {
   margin-right: auto;
   margin-bottom: 40px;
   z-index: 1;
-}
-
-.unroundedInput {
-  border-radius: 8px 8px 0 0 !important;
 }
 </style>
