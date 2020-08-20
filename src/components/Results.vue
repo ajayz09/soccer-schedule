@@ -1,7 +1,16 @@
 <template>
   <!-- <h1 style="color:white;">Inside Results</h1> -->
   <v-container fluid>
-    <DropDown/>
+    <div class="search-another">
+      <DropDown/>
+      <div class="search-another-btn">
+        <md-button class="material-icons" style="background:white;border-radius:20%">
+          <md-icon>search</md-icon>
+        </md-button>
+      </div>
+      <!-- <span class="material-icons search-again-icon">search</span> -->
+    </div>
+
     <!-- <h1 style="color:white;">{{$route.query.q}}</h1>
     <v-row>
       <v-col cols="12">
@@ -30,24 +39,6 @@ export default {
   name: "Results",
   created() {
     console.log(this.$route);
-    // fetch(
-    //   "https://api-football-v1.p.rapidapi.com/v2/fixtures/team/" +
-    //     this.$route.query.q +
-    //     "/next/10",
-    //   {
-    //     method: "GET",
-    //     headers: {
-    //       "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
-    //       "x-rapidapi-key": "c878d920a7msh960c77c641d7753p18ffd2jsn4467624a1a46"
-    //     }
-    //   }
-    // )
-    //   .then(response => {
-    //     console.log(response.json());
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
   },
   components: {
     DropDown
@@ -71,6 +62,13 @@ export default {
 </script>
 
 <style>
+.search-another {
+  display: flex;
+}
+
+.search-another-btn .search-btn {
+  border-radius: 8px !important;
+}
 </style>
 
 
