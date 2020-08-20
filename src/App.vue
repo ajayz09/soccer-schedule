@@ -1,21 +1,17 @@
 <template>
-  <div id="app">
-    <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
-    <!-- <Search></Search> -->
-    <router-view/>
-  </div>
+  <v-app>
+    <v-main>
+      <router-view/>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-// import Results from "./components/Results.vue";
-// import DropDown from "./components/DropDown.vue";
-
 export default {
-  name: "App" //,
-  // components: {
-  //   DropDown,
-  //   Results
-  // }
+  name: "App",
+  data: () => ({
+    //
+  })
 };
 </script>
 
@@ -29,8 +25,11 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #2c3e50;
-  /* margin-top: 60px; */
+  background-image: url(assets/background.jpg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 }
 html {
   overflow: hidden;
@@ -41,8 +40,5 @@ body {
   height: 100%;
   overflow: auto;
   margin: 0;
-  background-color: #2c3e50;
-  /* background-image: url(assets/background.png);
-  background-size: contain; */
 }
 </style>

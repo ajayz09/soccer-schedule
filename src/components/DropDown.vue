@@ -2,7 +2,7 @@
 <template>
   <div class="main-container" style="position:relative;">
     <div class="dropdown">
-      <h1 style="color:white;">Check your favourite teams schedule</h1>
+      <h1 style="color:white;margin-bottom:30px;">Check your favourite teams schedule</h1>
       <div
         class="search-bar"
         style="position:relative"
@@ -19,7 +19,7 @@
         >
       </div>
 
-      <div v-else @click="resetSelection" class="dropdown-selected">
+      <div v-else @click="resetSelection()" class="dropdown-selected">
         <img :src="selectedItem.logo" class="dropdown-item-flag">
         {{ selectedItem.name }}
       </div>
@@ -91,7 +91,6 @@ export default {
         this.hasDropDown = true;
         this.previousInput = currentInput;
       }
-
       return currentName.includes(currentInput);
     },
     searchSchedule() {
@@ -108,13 +107,17 @@ export default {
 <style>
 .main-container {
   display: flex;
+  align-items: center;
   justify-content: center;
+  height: 100%;
+  /* background-color: black; */
 }
 .dropdown {
   position: relative;
   width: 100%;
   max-width: 500px;
   margin: 0 auto;
+  opacity: 1;
 }
 .dropdown-input,
 .dropdown-selected {
@@ -139,14 +142,12 @@ export default {
   opacity: 0.7;
 }
 .dropdown-selected {
-  font-weight: bold;
   cursor: pointer;
 }
 .dropdown-list {
   position: absolute;
   width: 100%;
   max-height: 300px;
-  /* margin-top: 4px; */
   overflow-y: auto;
   background: #ffffff;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
