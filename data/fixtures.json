@@ -1,0 +1,43 @@
+{
+  "results": 1,
+  "fixtures": [
+    {
+      "fixture_id": 581019,
+      "league_id": 2725,
+      "league": {
+        "name": "Community Shield",
+        "country": "England",
+        "logo": "https://media.api-sports.io/football/leagues/528.png",
+        "flag": "https://media.api-sports.io/flags/gb.svg"
+      },
+      "event_date": "2020-08-29T00:00:00+00:00",
+      "event_timestamp": 1598659200,
+      "firstHalfStart": null,
+      "secondHalfStart": null,
+      "round": "Final",
+      "status": "Time to be defined",
+      "statusShort": "TBD",
+      "elapsed": 0,
+      "venue": "Wembley Stadium",
+      "referee": null,
+      "homeTeam": {
+        "team_id": 42,
+        "team_name": "Arsenal",
+        "logo": "https://media.api-sports.io/football/teams/42.png"
+      },
+      "awayTeam": {
+        "team_id": 40,
+        "team_name": "Liverpool",
+        "logo": "https://media.api-sports.io/football/teams/40.png"
+      },
+      "goalsHomeTeam": null,
+      "goalsAwayTeam": null,
+      "score": {
+        "halftime": null,
+        "fulltime": null,
+        "extratime": null,
+        "penalty": null
+      }
+    }
+  ]
+}
