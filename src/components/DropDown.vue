@@ -1,46 +1,37 @@
 
 <template>
-  <div class="main-container" style="position:relative;">
-    <div class="dropdown">
-      <h1 style="color:white;margin-bottom:30px;">Check your favourite teams schedule</h1>
-      <div
-        class="search-bar"
-        style="position:relative"
-        v-if="Object.keys(selectedItem).length === 0"
+  <div class="dropdown">
+    <h1 style="color:white;margin-bottom:30px;">Check your favourite teams schedule</h1>
+    <div class="search-bar" style="position:relative" v-if="Object.keys(selectedItem).length === 0">
+      <span class="material-icons search-icon">search</span>
+      <input
+        ref="dropdowninput"
+        v-model.trim="inputValue"
+        class="dropdown-input"
+        type="text"
+        placeholder="Enter the team name"
+        v-bind:class="{unroundedInput: inputValue && hasDropDown}"
       >
-        <span class="material-icons search-icon">search</span>
-        <input
-          ref="dropdowninput"
-          v-model.trim="inputValue"
-          class="dropdown-input"
-          type="text"
-          placeholder="Enter the team name"
-          v-bind:class="{unroundedInput: inputValue && hasDropDown}"
-        >
-      </div>
-
-      <div v-else @click="resetSelection()" class="dropdown-selected">
-        <img :src="selectedItem.logo" class="dropdown-item-flag">
-        {{ selectedItem.name }}
-      </div>
-      <div v-show="inputValue && apiLoaded" class="dropdown-list">
-        <div
-          @click="selectItem(item)"
-          v-show="itemVisible(item)"
-          v-for="item in itemList"
-          :key="item.name"
-          class="dropdown-item"
-        >
-          <div v-if="itemVisible(item) != 0">
-            <img :src="item.logo" class="dropdown-item-flag">
-            {{ item.name }}
-          </div>
-          <div v-if="itemVisible(item) === 0">No clubs found</div>
-        </div>
-      </div>
     </div>
-    <div class="search" v-if="selectedClub">
-      <md-button class="md-raised md-accent" @click="searchSchedule()">Search</md-button>
+
+    <div v-else @click="resetSelection()" class="dropdown-selected">
+      <img :src="selectedItem.logo" class="dropdown-item-flag">
+      {{ selectedItem.name }}
+    </div>
+    <div v-show="inputValue && apiLoaded" class="dropdown-list">
+      <div
+        @click="selectItem(item)"
+        v-show="itemVisible(item)"
+        v-for="item in itemList"
+        :key="item.name"
+        class="dropdown-item"
+      >
+        <div v-if="itemVisible(item) != 0">
+          <img :src="item.logo" class="dropdown-item-flag">
+          {{ item.name }}
+        </div>
+        <div v-if="itemVisible(item) === 0">No clubs found</div>
+      </div>
     </div>
   </div>
 </template>
@@ -105,13 +96,6 @@ export default {
 </script>
 
 <style>
-.main-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  /* background-color: black; */
-}
 .dropdown {
   position: relative;
   width: 100%;
