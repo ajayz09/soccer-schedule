@@ -1,7 +1,6 @@
 
 <template>
   <div class="dropdown">
-    <!-- <h1 style="color:white;margin-bottom:30px;">Check your favourite teams schedule</h1> -->
     <div class="search-bar" style="position:relative" v-if="Object.keys(selectedItem).length === 0">
       <span class="material-icons search-icon">search</span>
       <input
@@ -95,8 +94,9 @@ export default {
 .dropdown {
   position: relative;
   width: 100%;
-  max-width: 500px;
-  margin: 0 auto;
+  /* max-width: 500px; */
+  /* margin: 0px 20px 0px 20px; */
+  align-self: center;
   opacity: 1;
 }
 .dropdown-input,
