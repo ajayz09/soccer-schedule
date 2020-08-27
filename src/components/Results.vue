@@ -2,13 +2,43 @@
   <!-- <h1 style="color:white;">Inside Results</h1> -->
   <v-container fluid>
     <div class="search-another">
-      <DropDown/>
+      <DropDown style="z-index:2"/>
       <div class="search-another-btn">
         <md-button id="search-btn" class="md-raised md-accent search-btn">Search</md-button>
       </div>
     </div>
 
-    <v-layout row wrap justify-space-between>
+    <transition-group
+      name="slide-fade"
+      mode="out-in"
+      tag="div"
+      class="card-container"
+      style="z-index:1;"
+    >
+      <div class="event-container" v-for="(item, i) in items" :key="i">
+        <!-- <v-card id="schedule-card" class="ma-3 pa-6" :color="item.color" height="200">
+          <div class="d-flex flex-no-wrap justify-space-between">
+            <div>
+              <v-card-title class="headline" v-text="item.title"></v-card-title>
+
+              <v-card-subtitle v-text="item.artist"></v-card-subtitle>
+            </div>
+
+            <v-avatar class="ma-3" size="125" tile>
+              <v-img
+                src="https://media.api-sports.io/football/leagues/528.png"
+                contain
+                max-width="70"
+                max-height="70"
+              >Sunday, 6:30pm</v-img>
+            </v-avatar>
+          </div>
+        </v-card>-->
+        <Card/>
+      </div>
+    </transition-group>
+
+    <!-- <v-layout row wrap justify-space-between>
       <v-flex xs12 md4 v-for="(item, i) in items" :key="i">
         <v-card id="schedule-card" class="ma-3 pa-6" :color="item.color" height="200">
           <div class="d-flex flex-no-wrap justify-space-between">
@@ -29,7 +59,7 @@
           </div>
         </v-card>
       </v-flex>
-    </v-layout>
+    </v-layout>-->
 
     <!-- <v-row>
       <v-col cols="12">
@@ -71,6 +101,8 @@
 
 <script>
 import DropDown from "./DropDown.vue";
+import Card from "./Card.vue";
+
 export default {
   name: "Results",
   created() {
@@ -95,7 +127,8 @@ export default {
     //   });
   },
   components: {
-    DropDown
+    DropDown,
+    Card
   },
   data: () => ({
     items: [
@@ -115,19 +148,17 @@ export default {
     // alignmentsAvailable: ["start", "center", "end", "baseline", "stretch"],
     // alignment: "center",
     dense: false
-    // justifyAvailable: [
-    //   "start",
-    //   "center",
-    //   "end",
-    //   "space-around",
-    //   "space-between"
-    // ],
-    // justify: "center"
   })
 };
 </script>
 
 <style>
+.card-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
 .search-another {
   margin-top: 10px;
   display: flex;
@@ -141,6 +172,18 @@ export default {
 #search-btn {
   height: 43px;
   margin-inline-end: auto;
+}
+
+.slide-fade-enter-active {
+  transition: all 0.3s ease;
+}
+.slide-fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
 }
 </style>
 

@@ -37,8 +37,10 @@ html {
 }
 
 body {
-  height: 100%;
-  overflow: auto;
+  /* height: 100%; */
+  /* overflow: auto; */
   margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 </style>

@@ -94,6 +94,7 @@ export default {
 .dropdown {
   position: relative;
   width: 100%;
+  min-width: 200px;
   /* max-width: 500px; */
   /* margin: 0px 20px 0px 20px; */
   align-self: center;

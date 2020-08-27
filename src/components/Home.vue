@@ -2,8 +2,10 @@
 <template>
   <div class="main-container">
     <h1 style="color:white;margin-bottom:30px;">Check your favourite teams schedule</h1>
+    <div class="drop-down-home">
+      <DropDown style="z-index:2" @onItemSelected="itemSelected" @onItemReset="itemReset"/>
+    </div>
 
-    <DropDown style="z-index:2" @onItemSelected="itemSelected" @onItemReset="itemReset"/>
     <div class="search">
       <md-button class="md-raised md-accent" @click="searchSchedule()">Search</md-button>
     </div>
@@ -53,12 +55,15 @@ export default {
 <style>
 .main-container {
   position: relative;
-  /* display: flex; */
   margin-top: 80px;
   align-items: center;
   justify-content: center;
   height: 100%;
-  /* background-color: black; */
+}
+
+.drop-down-home {
+  max-width: 400px;
+  margin: 0 auto;
 }
 
 .search {
