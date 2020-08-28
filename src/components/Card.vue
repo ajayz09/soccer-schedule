@@ -5,11 +5,11 @@
       <div class="col-sm-8 event">
         <div class="row team-details" style="margin: auto">
           <img v-bind:src="item.homeTeam.logo" alt="logo" style="height:20px;width:20px;">
-          <h4>{{ item.homeTeam.team_name }}</h4>
+          <div id="teamHeader">{{ item.homeTeam.team_name }}</div>
         </div>
         <div class="row team-details" style="margin: auto">
           <img v-bind:src="item.awayTeam.logo" alt="logo" style="height:20px;width:20px;">
-          <h4>{{ item.awayTeam.team_name }}</h4>
+          <div id="teamHeader">{{ item.awayTeam.team_name }}</div>
         </div>
       </div>
       <div class="col-sm-4 event-time">
@@ -78,6 +78,10 @@ export default {
   color: gray;
 }
 
+/* #teamHeader {
+  
+} */
+
 .card-content .event-time h5 {
   font-weight: 500;
 }
@@ -86,6 +90,11 @@ export default {
   padding: 5px;
   justify-content: center;
   align-self: center;
+  white-space: nowrap;
+  /* display: inline-block;
+  overflow: hidden; */
+  text-overflow: ellipsis;
+  min-inline-size: max-content;
 }
 
 .team-details img {
