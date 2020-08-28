@@ -2,6 +2,7 @@
 node_modules
 /dist
 src/components/Search.vue
+data/api.json
 
 # local env files
 .env.local
