@@ -5,7 +5,6 @@
     <div class="drop-down-home">
       <DropDown style="z-index:2" @onItemSelected="itemSelected" @onItemReset="itemReset"/>
     </div>
-
     <div class="search">
       <md-button class="md-raised md-accent" @click="searchSchedule()">Search</md-button>
     </div>
